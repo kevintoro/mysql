@@ -594,14 +594,3 @@ SELECT DISTINCT CONCAT(usuarios.nombre, " ", usuarios.apellido) AS nombre_usuari
                                 AND DATE(libros_usuarios.fecha_creacion) = CURDATE()
     INNER JOIN libros ON libros_usuarios.libro_id = libros.libro_id
     INNER JOIN autores ON libros.autor_id = autores.autor_id AND autores.seudonimo IS NOT NULL;
-
-/*
-    SELECT e.nombre from empresa e where id in (select v.empresa from visitante v group by v.empresa having count(v.id) = ())
-*/
-
-select u.nombre as 'Nombre' from usuario u where u.id in 
-(select p.usuario from perfil p where p.idperfil in 
-(select v.perfil from verepisodio v where v.episodio in 
-(select e.idepisodio from episodio e where e.temporada in 
-(select t.idtemporada from temporada t where t.serie in 
-(select s.idserie from serie s inner join contenido c on s.idserie = c.id where c.titulo = 'Swordfish'))) and )) order by u.nombre asc
